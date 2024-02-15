@@ -4833,17 +4833,6 @@ functions-have-names@^1.2.3:
   resolved "https://registry.npmjs.org/functions-have-names/-/functions-have-names-1.2.3.tgz"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
 
-"gamification-react-test1@file:":
-  version "0.0.1"
-  resolved "file:"
-  dependencies:
-    aes-everywhere "^1.0.0"
-    base-64 "^1.0.0"
-    gamification-react-test1 "file:"
-    react "18.2.0"
-    react-native "0.73.3"
-    react-native-webview "^13.6.4"
-
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz"

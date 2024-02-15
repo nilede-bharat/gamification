@@ -10,6 +10,17 @@ You can install this package using npm:
 npm install gamification-react-test1
 ```
 
+## ios showing any error  install package
+
+```bash
+npm install react-native-webview
+```
+then go ios folder then run cmd
+
+```bash
+pod install
+```
+
 ## Usage
 
 1.create new page and import Gamification & pass config.

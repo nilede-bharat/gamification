@@ -48,7 +48,7 @@ export default ({
 
     const encryptInformation = () => {
         let encryptedData = AES256.encrypt(JSON.stringify({
-            clientID, key:clientKey, userID, username, utm_param1,
+            clientID, key: clientKey, userID, username, utm_param1,
             utm_param2, utm_param3, utm_param4, utm_source: 'Android'
         }), keyString);
         const encode = base64.encode(encryptedData);
@@ -87,12 +87,16 @@ export default ({
             zIndex: 999,
         }}>
             {(encryptedUrl) ? (isError ? <NoInternet refreshPage={refreshPage}/> : <WebView
-                ref={webViewRef}
+                  ref={webViewRef}
                 source={{uri: encryptedUrl}}
                 userAgent={'android'}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
                 scalesPageToFit={false}
+                setBuiltInZoomControls={false}
+                setSupportMultipleWindows={false}
+                mediaPlaybackRequiresUserAction={false}
+                bounces={false}
                 onError={() => setErrorData(true)}
                 onNavigationStateChange={handleNavigationStateChange}
             />) : null}
