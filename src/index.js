@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import WebView from 'react-native-webview';
 import AES256 from 'aes-everywhere';
-import {BackHandler, SafeAreaView} from "react-native";
+import {BackHandler, Linking, SafeAreaView} from "react-native";
 import base64 from 'base-64';
 import NoInternet from "./NoInternet";
 
@@ -76,6 +76,15 @@ export default ({
     const refreshPage = () => {
         setErrorData(false);
     }
+    const handleShouldStartLoadWithRequest = (event) => {
+        const {url, navigationType} = event;
+        if (url !== 'about:blank') {
+            // Open external links in the default browser
+            Linking.openURL(url);
+            return false; // Prevent WebView from loading the URL
+        }
+        return true; // Allow WebView to load the URL
+    };
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -87,7 +96,7 @@ export default ({
             zIndex: 999,
         }}>
             {(encryptedUrl) ? (isError ? <NoInternet refreshPage={refreshPage}/> : <WebView
-                  ref={webViewRef}
+                ref={webViewRef}
                 source={{uri: encryptedUrl}}
                 userAgent={'android'}
                 javaScriptEnabled={true}
@@ -99,6 +108,7 @@ export default ({
                 bounces={false}
                 onError={() => setErrorData(true)}
                 onNavigationStateChange={handleNavigationStateChange}
+                onShouldStartLoadWithRequest={handleShouldStartLoadWithRequest}
             />) : null}
         </SafeAreaView>
 

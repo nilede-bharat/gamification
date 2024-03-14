@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import WebView from 'react-native-webview';
 import AES256 from 'aes-everywhere';
-import {BackHandler, Pressable, SafeAreaView, Text} from "react-native";
+import {BackHandler, Linking, Pressable, SafeAreaView, Text} from "react-native";
 import base64 from 'base-64';
 import NoInternet from "./src/NoInternet";
 
@@ -79,21 +79,31 @@ export default ({
     const openWeb = () => {
         setOpen(true);
     }
+    const handleShouldStartLoadWithRequest = (event) => {
+        const {url, navigationType} = event;
+        if (navigationType === 'click' && url !== 'about:blank') {
+            // Open external links in the default browser
+            Linking.openURL(url);
+            return false; // Prevent WebView from loading the URL
+        }
+        return true; // Allow WebView to load the URL
+    };
     return (
         <SafeAreaView style={{flex: 1}}>
-        {(encryptedUrl && open) ? (isError ? <NoInternet refreshPage={refreshPage}/> : <WebView
-            ref={webViewRef}
-            source={{uri: encryptedUrl}}
-            userAgent={'android'}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            scalesPageToFit={false}
-            onError={() => setErrorData(true)}
-            onNavigationStateChange={handleNavigationStateChange}
-        />) : <Pressable onPress={openWeb} style={{...style}}>
-            {children ?? <Text
-                style={{color: 'white', backgroundColor: '#354156', textAlign: 'center', padding: 10}}>Test</Text>}
-        </Pressable>}
-    </SafeAreaView>
+            {(encryptedUrl && open) ? (isError ? <NoInternet refreshPage={refreshPage}/> : <WebView
+                ref={webViewRef}
+                source={{uri: encryptedUrl}}
+                userAgent={'android'}
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                scalesPageToFit={false}
+                onError={() => setErrorData(true)}
+                onNavigationStateChange={handleNavigationStateChange}
+                onShouldStartLoadWithRequest={handleShouldStartLoadWithRequest}
+            />) : <Pressable onPress={openWeb} style={{...style}}>
+                {children ?? <Text
+                    style={{color: 'white', backgroundColor: '#354156', textAlign: 'center', padding: 10}}>Test</Text>}
+            </Pressable>}
+        </SafeAreaView>
     );
 };
