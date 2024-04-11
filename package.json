@@ -13,7 +13,7 @@
     "base-64": "^1.0.0",
     "react": "18.2.0",
     "react-native": "0.73.3",
-    "react-native-orientation-locker": "^1.6.0",
+    "react-native-orientation-locker": "^1.4.0",
     "react-native-webview": "^13.6.4"
   },
   "devDependencies": {

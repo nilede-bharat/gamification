@@ -27,9 +27,9 @@ export default ({
     const [isError, setErrorData] = useState(false);
 
     useEffect(() => {
-        Orientation.lockToPortrait(true);
+        Orientation.lockToPortrait();
         return () => {
-            Orientation.unlockAllOrientations(true);
+            Orientation.unlockAllOrientations();
         };
     }, []);
     useEffect(() => {
