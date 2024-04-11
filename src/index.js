@@ -4,6 +4,7 @@ import AES256 from 'aes-everywhere';
 import {BackHandler, Linking, SafeAreaView} from "react-native";
 import base64 from 'base-64';
 import NoInternet from "./NoInternet";
+import Orientation from 'react-native-orientation-locker';
 
 export default ({
                     baseUrl = "https://thelogicalbanya.com/popupdemo/dashboard.php",
@@ -25,6 +26,12 @@ export default ({
     const [backPress, setBackPress] = useState(false);
     const [isError, setErrorData] = useState(false);
 
+    useEffect(() => {
+        Orientation.lockToPortrait(true);
+        return () => {
+            Orientation.unlockAllOrientations(true);
+        };
+    }, []);
     useEffect(() => {
         encryptInformation();
     }, []);
